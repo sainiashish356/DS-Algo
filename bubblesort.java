@@ -1,32 +1,61 @@
 public class bubblesort {
 
+    public static void bubble(int[] arr){
 
-    public static void main(String[] args) {
-        int[] arr = {3,2,1,4,5,88};
-        int n = arr.length;
-        bubblesearch(arr, 0, n);
-    }
-    
-public static void bubblesearch(int[] arr, int start , int n){
-    //n is the length of array
-    if(n == 0){
-        return;
-    }
+        for(int i= 0; i < arr.length; i++){
 
-    if(start < n){
-        if(arr[start] > arr[start+1]){
-            //swap
-            int temp = arr[start];
-            arr[start] = arr[start+1];
-            arr[start+1] = temp;
+            for(int j = 1; j < arr.length-i ; j++){
 
+                if(arr[j] < arr[j-1]){
+                    int temp = arr[j];
+                    arr[j] = arr[j-1];
+                    arr[j-1]= temp;
+                }
+            }
         }
-        bubblesearch(arr, start +1, n);
-    }else{
-        bubblesearch(arr, 0, n-1 );
+
     }
 
-}
 
+    public static int length(Node<Integer> head){
+            int count = 0;
+            while(head != null){
+                head = head.next;
+                count++;
+            }
+            return count;
+    }
+
+    public static Node<Integer> BUBBLESORT(Node<Integer> head){
+
+        int n = length(head);
+
+        for(int i =0 ; i < (n -1) ; i++){
+            Node<Integer> curr = head;
+            Node<Integer> prev = null;
+
+            for(int j = 0 ; j < (n - i - 1) ; j++){
+            //means both nodes are at correct position no changes
+                if(curr.data <= curr.next.data){
+                    prev = curr;
+                    curr = curr.next;
+                }else if(prev == null) {  //means we need to swap first two nodes
+                    Node<Integer> fwd = curr.next;
+                    head = head.next;
+                    curr.next = fwd.next;
+                    fwd.next = curr;
+                    prev= fwd;
+                }else{
+                    Node<Integer> fwd = curr.next;
+                    prev.next = fwd;
+                    curr.next = fwd.next;
+                    fwd.next = curr;
+                    prev = fwd;
+                }
+
+            }
+        }
+    return head;
+    }
 
 }
